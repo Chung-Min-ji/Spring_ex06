@@ -12,7 +12,11 @@
     class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
     <bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"/>
 
-    <security:http auto-config="true" use-expressions="true">
+<!--    auto-config : 스프링 시큐리티의 기본 로그인페이지, 인증, 로그아웃 기능 사용 여부.-->
+<!--    use-expressions : 표현식 사용할건지? default는 false.-->
+<!--    <security:http auto-config="true" use-expressions="true">-->
+    <security:http>
+
         <!-- 특정 url에 접근할 때 인터셉터 이용해서 접근 제한하기 위한 설정.
              pattern : url 패턴
              access : 접근권한 체크. (1)표현식, (2)권한명 의미하는 문자열 이용 가능.
@@ -28,7 +32,11 @@
         <!--        스프링 시큐리티가 기본적으로 제공하는 로그인 페이지-->
         <!--        <security:form-login/>-->
         <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
-        <security:logout logout-url="/customLogout" invalidate-session="true"/>
+
+        <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
+
+        <security:logout logout-url="/customLogout" invalidate-session="true" delete-cookies="remember-me, JSESSION_ID"/>
+
     </security:http>
 
     <security:authentication-manager>
