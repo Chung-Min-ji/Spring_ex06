@@ -48,6 +48,7 @@
 
 
     <!-- myBatis component-scan -->
+    <mybatis-spring:scan base-package="org.zerock.mapper"/>
 
     <!-- component-scan -->
 
