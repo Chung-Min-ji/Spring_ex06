@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:security="http://www.springframework.org/schema/security"
+       xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"/>
+    <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"/>
+
+    <security:http auto-config="true" use-expressions="true">
+        <!-- 특정 url에 접근할 때 인터셉터 이용해서 접근 제한하기 위한 설정.
+             pattern : url 패턴
+             access : 접근권한 체크. (1)표현식, (2)권한명 의미하는 문자열 이용 가능.
+                      <security:http>의 기본 설정은 (2)를 이용하는 방식이다. -->
+        <security:intercept-url pattern="/sample/all" access="permitAll"/>
+        <security:intercept-url pattern="/sample/member" access="hasRole('ROLE_MEMBER')"/>
+        <security:intercept-url pattern="/sample/admin" access="hasRole('ROLE_ADMIN')"/>
+
+        <!--        접근제한시 처리. accessError : 단순 페이지 리턴, customAccessDenied : 리다이렉트-->
+        <!--        <security:access-denied-handler error-page="/accessError"/>-->
+        <security:access-denied-handler ref="customAccessDenied"/>
+
+        <!--        스프링 시큐리티가 기본적으로 제공하는 로그인 페이지-->
+        <!--        <security:form-login/>-->
+        <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+        <security:logout logout-url="/customLogout" invalidate-session="true"/>
+    </security:http>
+
+    <security:authentication-manager>
+        <security:authentication-provider>
+            <security:user-service>
+
+                <!-- spring-security 5버전부터는 반드시 PasswordEncoder 를 지정해야 함.-->
+                <!-- 1. 포맷팅 처리 지정해서 패스워드 인코딩 방식 지정할 수 있다.-->
+                <!-- 2. 패스워드 인코딩 처리 없이 사용하고 싶다면, 패스워드 앞에 {noop} 문자열 추가한다.-->
+                <security:user name="member" password="{noop}member" authorities="ROLE_MEMBER"/>
+                <security:user name="admin" password="{noop}admin" authorities="ROLE_MEMBER, ROLE_ADMIN"/>
+
+            </security:user-service>
+        </security:authentication-provider>
+    </security:authentication-manager>
+
+
+
+</beans>

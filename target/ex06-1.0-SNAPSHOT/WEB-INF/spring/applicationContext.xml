@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        https://www.springframework.org/schema/context/spring-context.xsd
+        http://mybatis.org/schema/mybatis-spring
+        https://mybatis.org/schema/mybatis-spring.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task.xsd">
+
+
+    <!--  quartz 라이브러리의 어노테이션을 사용하기 위해 추가 -->
+    <task:annotation-driven/>
+
+    <!-- Root Context: defines shared resources visible to all other web components -->
+    <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+        <!-- property: 속성(=필드). Bean들은, 자바빈즈 규약에 따라 생성된 클래스임.
+                       따라서 이 property(속성, 필드)들은 모두 private 접근제한자를 가지고 있다.
+                       ->> <property>태그는, 이 필드들에 대한 Setter메소드 역할을 함. -->
+        <!--        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>-->
+        <!--        <property name="jdbcUrl" value="jdbc:oracle:thin:@localhost:1521:XE"/>-->
+
+        <property name="driverClassName"
+                  value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+        <property name="jdbcUrl" value="jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>
+
+        <property name="username" value="book_ex"/>
+        <property name="password" value="oracle!!!"/>
+    </bean>
+
+    <!-- HikariCP configuration-->
+    <bean id="dataSource"
+          class="com.zaxxer.hikari.HikariDataSource"
+          destroy-method="close"> <!-- 해제할 때 어떤 메소드로 해제하는지? -> "close()"메소드로 해제함!-->
+
+        <!--생성자의 parameter로, 첫번째 등록한 Bean(id="hikariConfig")을 참조(사용)-->
+        <constructor-arg ref="hikariConfig"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+
+    <!-- myBatis component-scan -->
+
+    <!-- component-scan -->
+
+
+</beans>
