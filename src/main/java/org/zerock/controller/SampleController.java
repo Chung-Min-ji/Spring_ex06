@@ -1,6 +1,7 @@
 package org.zerock.controller;
 
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +25,11 @@ public class SampleController {
     public void doAdmin(){
         log.info("admin only.");
     } //doAdmin
+
+    @Secured("ROLE_ADMIN")
+    @GetMapping("/annoAdmin")
+    public void doAdmin2(){
+        log.info("doAdmin2() invoked... adjmin annotation only");
+    } //doAdmin2
 
 } //end class
