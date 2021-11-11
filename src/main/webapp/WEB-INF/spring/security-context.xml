@@ -6,10 +6,13 @@
         http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <bean id="customAccessDenied" class="org.zerock.security.CustomAccessDeniedHandler"/>
-    <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"/>
+
+<!--    <bean id="customLoginSuccess" class="org.zerock.security.CustomLoginSuccessHandler"/>-->
+
 <!--    <bean id="customPasswordEncoder" class="org.zerock.security.CustomNoOpPasswordEncoder"/>-->
     <bean id="bcryptPasswordEncoder"
     class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
+
     <bean id="customUserDetailsService" class="org.zerock.security.CustomUserDetailsService"/>
 
 <!--    auto-config : 스프링 시큐리티의 기본 로그인페이지, 인증, 로그아웃 기능 사용 여부.-->
@@ -31,7 +34,7 @@
 
         <!--        스프링 시큐리티가 기본적으로 제공하는 로그인 페이지-->
         <!--        <security:form-login/>-->
-        <security:form-login login-page="/customLogin" authentication-success-handler-ref="customLoginSuccess"/>
+        <security:form-login login-page="/customLogin"/>
 
         <security:remember-me data-source-ref="dataSource" token-validity-seconds="604800"/>
 

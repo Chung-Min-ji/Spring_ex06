@@ -18,14 +18,67 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-</head>
-<body>
-<h1>Logout Page</h1>
 
-<form action="/customLogout" method="post">
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-    <button>로그아웃</button>
-</form>
+    <!-- Core CSS - Include with every page -->
+    <link href="/resources/sb-admin-v2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/resources/sb-admin-v2/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="/resources/sb-admin-v2/css/sb-admin.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Logout Page</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/customLogout">
+                        <fieldset>
+                                <!-- Change this to a button or input when using this as a form-->
+                                <a href="index.html" class="btn btn-lg btn-success btn-block">Logout</a>
+                        </fieldset>
+
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Core Scripts - Include with every page -->
+<script src="/resources/sb-admin-v2/js/jquery-1.10.2.js"></script>
+<script src="/resources/sb-admin-v2/js/bootstrap.min.js"></script>
+<script src="/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- SB Admin Scripts - Include with every page -->
+<script src="/resources/sb-admin-v2/js/sb-admin.js"></script>
+
+
+<script>
+    $(".btn-success").on("click", function(e){
+
+        e.preventDefault();
+        $("form").submit();
+    }); //on click for btn-success
+</script>
+
+<c:if test="${param.logout != null}">
+    <script>
+        $(function(){
+            alert("로그아웃 하였습니다.");
+        }); //jq
+    </script>
+</c:if>
 
 </body>
+
 </html>

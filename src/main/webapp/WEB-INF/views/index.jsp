@@ -12,6 +12,10 @@
   </head>
   <body>
 
-  <h1>Hello World!</h1>
+  <script type="text/javascript">
+
+    self.location="/board/list";
+  </script>
+
   </body>
 </html>

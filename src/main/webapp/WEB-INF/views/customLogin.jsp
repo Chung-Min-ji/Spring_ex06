@@ -18,29 +18,68 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <!-- Core CSS - Include with every page -->
+    <link href="/resources/sb-admin-v2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="/resources/sb-admin-v2/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css">
+
+    <!-- SB Admin CSS - Include with every page -->
+    <link href="/resources/sb-admin-v2/css/sb-admin.css" rel="stylesheet">
+
 </head>
+
 <body>
 
-<h1>Custom Login Page</h1>
-<h2><c:out value="${error}"/></h2>
-<h2><c:out value="${logout}"/></h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Please Sign In</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form" method="post" action="/login">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="userid" name="username" type="text" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="Password" name="password" type="password" value="">
+                            </div>
+                            <div class="checkbox">
+                                <label><input name="remember-me" type="checkbox">Remember Me</label>
+                            </div>
+                            <!-- Changes this to a button or input when using this as a form -->
 
-<form method="post" action="/login">
+                            <a href="index.html" class="btn btn-lg btn-success btn-block">Login</a>
+                        </fieldset>
 
-    <div>
-        <input type="text" name="username" value="id">
+                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-    <div>
-        <input type="password" name="password" value="password">
-    </div>
-    <div>
-        <input type="checkbox" name="remember-me">Remember Me
-    </div>
-    <div>
-        <input type="submit">
-    </div>
+</div>
 
-    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-</form>
+<!-- Core Scripts - Include with every page -->
+<script src="/resources/sb-admin-v2/js/jquery-1.10.2.js"></script>
+<script src="/resources/sb-admin-v2/js/bootstrap.min.js"></script>
+<script src="/resources/sb-admin-v2/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- SB Admin Scripts - Include with every page -->
+<script src="/resources/sb-admin-v2/js/sb-admin.js"></script>
+
+<script>
+    $(".btn-success").on("click", function(e){
+
+        e.preventDefault();
+        $("form").submit();
+    }); //on click for btn-success
+</script>
+
 </body>
+
 </html>
