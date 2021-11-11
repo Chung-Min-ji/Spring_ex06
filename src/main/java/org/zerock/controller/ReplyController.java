@@ -52,7 +52,7 @@ public class ReplyController {
         // 즉, 파라미터의 값과 이름을 함께 전달해야 할 때는 RequestParam 을 사용하고
         // RESP api에서 값을 호출할때는 주로 PathVariable을 사용한다.
     public ResponseEntity<ReplyPageDTO> getList(@PathVariable("page") int page,
-                                                      @PathVariable("bno") Long bno){
+                                                @PathVariable("bno") Long bno){
         log.debug("getList({},{}) invoked.", page, bno);
 
         Criteria cri = new Criteria(page, 10);

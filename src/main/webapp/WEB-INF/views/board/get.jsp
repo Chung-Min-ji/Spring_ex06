@@ -256,7 +256,7 @@
                 console.log(list);
 
                 if(page == -1){
-                    pageNum = math.ceil(replyCnt / 10.0);
+                    pageNum = Math.ceil(replyCnt / 10.0);
                     showList(pageNum);
 
                     return;
@@ -517,9 +517,9 @@
     }); //getList
 
     //-- for replyService add test
-    replyService.add({reply:"js Test", replyer:"tester", bno:bnoValue}, function(result){
-            alert("RESULT : " + result);
-    }); //add
+    // replyService.add({reply:"js Test", replyer:"tester", bno:bnoValue}, function(result){
+    //         alert("RESULT : " + result);
+    // }); //add
 
     // //-- 4번 댓글 삭제 테스트
     // replyService.remove(4,function(count){
